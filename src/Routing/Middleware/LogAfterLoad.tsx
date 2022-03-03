@@ -1,7 +1,9 @@
-import {Middleware} from "./Middleware";
+import {Callback, Middleware} from "../Types";
 
-export const LogAfterLoad = (next: any) => {
-    let response = next()
+export const LogAfterLoad: Middleware = async (next: Callback) => {
+    let response = await next()
+
     console.log('CHECKPOINT 2')
-    return next()
+
+    return response
 }

@@ -1,7 +1,6 @@
-import {Middleware} from "./Middleware";
+import {Callback, Middleware} from "../Types";
 
-export const ErrorMessage = (next: any) => {
-    // console.log('ERROR!');
+export const ErrorMessage: Middleware = async (next: Callback) => {
     return (
         <p>Error!</p>
     )

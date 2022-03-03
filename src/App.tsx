@@ -7,12 +7,13 @@ import {
   Route,
 } from "react-router-dom";
 import {withMiddleware} from "./Routing/WithMiddleware";
-import { LogBeforeLoad } from "./Routing/Middleware/LogBeforeLoad";
+import { ApplyWrapper } from "./Routing/Middleware/ApplyWrapper";
 import { LogAfterLoad } from "./Routing/Middleware/LogAfterLoad";
 import { ErrorMessage } from "./Routing/Middleware/ErrorMessage";
 import { A } from "./Pages/A";
 import { B } from "./Pages/B";
 import { C } from "./Pages/C";
+import {Delay} from "./Routing/Middleware/Delay";
 
 function App() {
   return (
@@ -21,9 +22,11 @@ function App() {
           <Route path={'/a'} element={
               withMiddleware(
                 <A/>,
+                <p>Loading...</p>,
                 [
-                    LogBeforeLoad,
+                    ApplyWrapper,
                     LogAfterLoad,
+                    Delay,
                     // ErrorMessage
                 ]
               )
@@ -31,21 +34,25 @@ function App() {
           <Route path={'/b'} element={
               withMiddleware(
                 <B/>,
-                  [
-                      LogAfterLoad,
-                      LogBeforeLoad,
-                      ErrorMessage
-                  ]
+                <p>Loading...</p>,
+                [
+                  LogAfterLoad,
+                  ApplyWrapper,
+                  Delay,
+                  ErrorMessage
+                ]
               )
           }/>
           <Route path={'/c'} element={
               withMiddleware(
                 <C/>,
-                  [
-                      LogBeforeLoad,
-                      ErrorMessage,
-                      LogAfterLoad,
-                  ]
+                <p>Loading...</p>,
+                [
+                  ApplyWrapper,
+                  ErrorMessage,
+                  Delay,
+                  LogAfterLoad,
+                ]
               )
           }/>
         </Routes>
