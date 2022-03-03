@@ -7,9 +7,9 @@ import {
   Route,
 } from "react-router-dom";
 import {withMiddleware} from "./Routing/WithMiddleware";
-import { Check1 } from "./Routing/Middleware/Check1";
-import { Check2 } from "./Routing/Middleware/Check2";
-import { Check3 } from "./Routing/Middleware/Check3";
+import { LogBeforeLoad } from "./Routing/Middleware/LogBeforeLoad";
+import { LogAfterLoad } from "./Routing/Middleware/LogAfterLoad";
+import { ErrorMessage } from "./Routing/Middleware/ErrorMessage";
 import { A } from "./Pages/A";
 import { B } from "./Pages/B";
 import { C } from "./Pages/C";
@@ -22,9 +22,9 @@ function App() {
               withMiddleware(
                 <A/>,
                 [
-                    Check1,
-                    Check2,
-                    Check3
+                    LogBeforeLoad,
+                    LogAfterLoad,
+                    // ErrorMessage
                 ]
               )
           }/>
@@ -32,9 +32,9 @@ function App() {
               withMiddleware(
                 <B/>,
                   [
-                      Check2,
-                      Check1,
-                      Check3
+                      LogAfterLoad,
+                      LogBeforeLoad,
+                      ErrorMessage
                   ]
               )
           }/>
@@ -42,9 +42,9 @@ function App() {
               withMiddleware(
                 <C/>,
                   [
-                      Check1,
-                      Check3,
-                      Check2,
+                      LogBeforeLoad,
+                      ErrorMessage,
+                      LogAfterLoad,
                   ]
               )
           }/>
